@@ -164,18 +164,13 @@ wdbc = pd.read_csv("wdbc.data",header=None)
 #wdbc.iloc[row,column]
 
 
-#this counts the amount of rows
 xnum = len(wdbc.index)
 
-#This will drop column 0, which is an identifier column.
-#axis=1 maakes it so it drops a column, having it = 0 will make it drop a row
+
 wdbc = wdbc.drop(wdbc.columns[[0]],axis=1)
 
 y = []
-#Change M to 1, and B to 0 so nomralize() can classify the values.
-#Hold these values in the y[] array, which allows the
-#corresponding column to be dropped, leaving only
-#independent variables in the wdbc df
+
 for i in range(xnum):
     if "M" == wdbc.iloc[i,0]:
         y.append(1)
@@ -197,20 +192,9 @@ print(x.iloc[0,0])
 def main():
     normalize(x)
     correct = 0
-    temp = [-0.13019641397227097, 0.5013903243371093, 0.15014756131861975, -0.10826523921500485, 0.08130600218304652, -0.29661766783335863, 0.6927028468698342, 0.8976642826559935, 0.7732330805110962, -0.6610710435969134, -0.6703958396248579, 0.576301472703391, 0.4914571911941294, 0.5833924703497689, 0.06947340525390948, 0.029887570007273767, 0.43752635923260774, 0.6024059034515972, -0.09959638870635232, 0.19253103921788406, 0.5122467190125878, -0.011269683036978702, -0.48080261639166927, 0.27948527274891577, 0.3807162814984631, -0.7232723696495073, 0.32821835829468715, 0.8669005234144801, 0.44344132634032746, 0.17144938508860846, 0.21617069309989176]
-    for i in range(xnum):
-        h = calculate_h_x(x, temp, i)
-        if h>=.5:
-            h=1
-        else:
-            h=0
-        if y[i] == h:
-            correct+= 1
-    #end for i
-    print(correct/xnum)
+    the = gradient_descent(x, y, .0005, 10000)
+    print(the)
     pass
-    #the = gradient_descent(x, y, .0005, 10000)
-    #print(the)
     
 main()
 
@@ -258,30 +242,9 @@ def test2():
     pass
 
                                                                             
-#gradient_descent(X,y,alpha,T)
-#Theres a lot to test here
-def test3():
-    
-    pass
 
-"""
-def accuracy():
-    correct = 0
-    temp = []
-    for i in range(xnum):
-        h = calculate_h_x(x, temp, i)
-        if h>=.5:
-            h=1
-        else:
-            h=0
-        if y[i] == h:
-            correct+= 1
-    #end for i
-    print(correct/xnum)
-    pass
 
-[-0.13019641397227097, 0.5013903243371093, 0.15014756131861975, -0.10826523921500485, 0.08130600218304652, -0.29661766783335863, 0.6927028468698342, 0.8976642826559935, 0.7732330805110962, -0.6610710435969134, -0.6703958396248579, 0.576301472703391, 0.4914571911941294, 0.5833924703497689, 0.06947340525390948, 0.029887570007273767, 0.43752635923260774, 0.6024059034515972, -0.09959638870635232, 0.19253103921788406, 0.5122467190125878, -0.011269683036978702, -0.48080261639166927, 0.27948527274891577, 0.3807162814984631, -0.7232723696495073, 0.32821835829468715, 0.8669005234144801, 0.44344132634032746, 0.17144938508860846, 0.21617069309989176]
-"""
+
 
 
 
